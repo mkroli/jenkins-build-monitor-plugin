@@ -3,10 +3,14 @@
 angular.
     module('buildMonitor.controllers', [ 'buildMonitor.services', 'buildMonitor.cron', 'uiSlider', 'jenkins', 'buildMonitor.stats']).
 
-    controller('JobViews', ['$scope', '$rootScope', '$window', 'proxy', 'every', 'connectivityStrategist',
-        function ($scope, $rootScope, $window, proxy, every, connectivityStrategist) {
+    controller('JobViews', ['$scope', '$rootScope', '$window', 'proxy', 'every', 'connectivityStrategist', 'fullScreenSettings',
+        function ($scope, $rootScope, $window, proxy, every, connectivityStrategist, fullScreenSettings) {
             var tryToRecover  = connectivityStrategist.decideOnStrategy,
                 fetchJobViews = proxy.buildMonitor.fetchJobViews;
+
+            if(fullScreenSettings.fullScreen) {
+                $rootScope.settings = fullScreenSettings;
+            }
 
             $scope.jobs         = [];
             $scope.fontSize     = fontSizeFor($scope.jobs);

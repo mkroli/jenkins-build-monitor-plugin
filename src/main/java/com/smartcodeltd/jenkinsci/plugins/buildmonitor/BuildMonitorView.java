@@ -80,6 +80,26 @@ public class BuildMonitorView extends ListView {
         return currentConfig().getOrder().getClass().getSimpleName();
     }
 
+    @SuppressWarnings("unused") // used in the configure-entries.jelly form
+    public double getFontSize() {
+        return currentConfig().getFontSize();
+    }
+
+    @SuppressWarnings("unused") // used in the configure-entries.jelly form
+    public int getNumberOfColumns() {
+        return currentConfig().getNumberOfColumns();
+    }
+
+    @SuppressWarnings("unused") // used in the configure-entries.jelly form
+    public boolean isColourBlind() {
+        return currentConfig().isColourBlind();
+    }
+
+    @SuppressWarnings("unused") // used in the configure-entries.jelly form
+    public boolean isFullScreen() {
+        return currentConfig().isFullScreen();
+    }
+
     private static final BuildMonitorInstallation installation = new BuildMonitorInstallation();
 
     @SuppressWarnings("unused") // used in index.jelly
@@ -97,6 +117,26 @@ public class BuildMonitorView extends ListView {
         super.submit(req);
 
         String requestedOrdering = req.getParameter("order");
+
+        try {
+            double fontSize = Double.parseDouble(req.getParameter("fontSize"));
+            currentConfig().setFontSize(fontSize);
+        } catch(NumberFormatException nfe) {
+            throw new FormException("Invalid number format", "fontSize");
+        }
+
+        try {
+            int numberOfColumns = Integer.parseInt(req.getParameter("numberOfColumns"));
+            currentConfig().setNumberOfColumns(numberOfColumns);
+        } catch(NumberFormatException nfe) {
+            throw new FormException("Invalid number format", "numberOfColumns");
+        }
+
+        boolean colourBlind = isGiven(req.getParameter("colourBlind"));
+        currentConfig().setColourBlind(colourBlind);
+
+        boolean fullScreen = isGiven(req.getParameter("fullScreen"));
+        currentConfig().setFullScreen(fullScreen);
 
         title = req.getParameter("title");
 

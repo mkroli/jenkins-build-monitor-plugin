@@ -77,13 +77,21 @@
 
                 ga('send', 'screenview', {screenName: 'Dashboard'});
             </script>
+            <script>
+                angular.module('buildMonitor.fullScreenSettings', []).value('fullScreenSettings', {
+                    fullScreen: ${it.fullScreen},
+                    fontSize: ${it.fontSize},
+                    numberOfColumns: ${it.numberOfColumns},
+                    colourBlind: ${it.colourBlind}
+                });
+            </script>
             <script async="async" src='//www.google-analytics.com/analytics.js'></script>
         </head>
         <body class="build-monitor dashboard industrial"
               data-ng-app="buildMonitor"
               data-ng-controller="JobViews">
 
-            <header>
+            <header ng-hide="${it.fullScreen}">
                 <a class="home-link" href="${rootURL}/" title="Jenkins">Jenkins</a>
                 <h1><a href="configure" title="Configure the '${it.title}' view">${it.title}</a></h1>
                 <st:include page="main-settings.jelly"/>
@@ -104,7 +112,7 @@
                 </j:otherwise>
             </j:choose>
 
-            <footer>
+            <footer ng-hide="${it.fullScreen}">
                 <div class="connectivity column">
                     <notifier />
                 </div>

@@ -5,9 +5,11 @@ angular.
         function ($scope, cookieJar, townCrier) {
             'use strict';
 
-            $scope.settings.fontSize        = cookieJar.get('fontSize',        1);
-            $scope.settings.numberOfColumns = cookieJar.get('numberOfColumns', 2);
-            $scope.settings.colourBlind     = cookieJar.get('colourBlind',     0);
+            if(!$scope.settings || !$scope.settings.fullScreen) {
+                $scope.settings.fontSize        = cookieJar.get('fontSize',        1);
+                $scope.settings.numberOfColumns = cookieJar.get('numberOfColumns', 2);
+                $scope.settings.colourBlind     = cookieJar.get('colourBlind',     0);
+            }
 
             angular.forEach($scope.settings, function(value, name) {
                 $scope.$watch('settings.' + name, function(currentValue) {
