@@ -3,13 +3,13 @@
 angular.
     module('buildMonitor.controllers', [ 'buildMonitor.services', 'buildMonitor.cron', 'uiSlider', 'jenkins', 'buildMonitor.stats']).
 
-    controller('JobViews', ['$scope', '$rootScope', '$window', 'proxy', 'every', 'connectivityStrategist', 'fullScreenSettings',
-        function ($scope, $rootScope, $window, proxy, every, connectivityStrategist, fullScreenSettings) {
+    controller('JobViews', ['$scope', '$rootScope', '$window', 'proxy', 'every', 'connectivityStrategist', 'FULLSCREEN_SETTINGS',
+        function ($scope, $rootScope, $window, proxy, every, connectivityStrategist, FULLSCREEN_SETTINGS) {
             var tryToRecover  = connectivityStrategist.decideOnStrategy,
                 fetchJobViews = proxy.buildMonitor.fetchJobViews;
 
-            if(fullScreenSettings.fullScreen) {
-                $rootScope.settings = fullScreenSettings;
+            if(FULLSCREEN_SETTINGS.fullScreen) {
+                $rootScope.settings = FULLSCREEN_SETTINGS;
             }
 
             $scope.jobs         = [];

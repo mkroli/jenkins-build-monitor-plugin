@@ -7,7 +7,6 @@ angular
     'buildMonitor.filters',
     'buildMonitor.settings',
     'buildMonitor.stats',
-    'buildMonitor.fullScreenSettings',
     'slugifier',
     'build-monitor.slots',
     'build-monitor.expansions.build-number', //todo: this should be discovered rather than defined explicitly
