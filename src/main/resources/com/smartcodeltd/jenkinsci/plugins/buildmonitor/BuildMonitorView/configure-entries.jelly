@@ -66,12 +66,12 @@
   </f:entry>
 
   <f:optionalBlock name="fullScreen" title="${%Fullscreen}" checked="${it.fullScreen}">
-    <f:entry title="${%Text scale}">
-      <f:textbox name="fontSize" value="${it.fontSize}"/>
+    <f:entry title="${%Text scale}" field="fontSize">
+      <f:number name="fontSize" value="${it.fontSize}" />
     </f:entry>
 
-    <f:entry title="${%Maximum number of columns}">
-      <f:textbox name="numberOfColumns" value="${it.numberOfColumns}"/>
+    <f:entry title="${%Maximum number of columns}" field="numberOfColumns">
+      <f:number name="numberOfColumns" value="${it.numberOfColumns}" />
     </f:entry>
 
     <f:entry title="${%Colour blind mode}">

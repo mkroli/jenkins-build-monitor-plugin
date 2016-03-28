@@ -35,6 +35,24 @@ public final class BuildMonitorDescriptor extends ViewDescriptor {
         return FormValidation.ok();
     }
 
+    public FormValidation doCheckFontSize(@QueryParameter String fontSize) {
+        try {
+            Double.parseDouble(fontSize);
+            return FormValidation.ok();
+        } catch (NumberFormatException nfe) {
+            return FormValidation.error("Not a number");
+        }
+    }
+
+    public FormValidation doCheckNumberOfColumns(@QueryParameter String numberOfColumns) {
+        try {
+            Integer.parseInt(numberOfColumns);
+            return FormValidation.ok();
+        } catch (NumberFormatException nfe) {
+            return FormValidation.error("Not a number");
+        }
+    }
+
     @Override
     public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
         req.bindJSON(this, json.getJSONObject("build-monitor"));
