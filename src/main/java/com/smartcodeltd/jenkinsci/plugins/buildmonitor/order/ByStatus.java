@@ -9,12 +9,30 @@ import java.util.Comparator;
 public class ByStatus implements Comparator<Job<?, ?>> {
     @Override
     public int compare(Job<?, ?> a, Job<?, ?> b) {
-        return bothProjectsHaveBuildHistory(a, b)
-            ? compareRecentlyCompletedBuilds(a, b)
-            : compareProjects(a, b);
+        return compareChain(
+                compareBuilding(a, b),
+                bothProjectsHaveBuildHistory(a, b)
+                        ? compareRecentlyCompletedBuilds(a, b)
+                        : compareProjects(a, b)
+        );
     }
 
     // --
+
+    private int compareChain(int... comparisons) {
+        for (int i = 0; i < comparisons.length; i++)
+            if (comparisons[i] != 0)
+                return comparisons[i];
+        return 0;
+    }
+
+    private int compareBuilding(Job<?, ?> a, Job<?, ?> b) {
+        if (a.isBuilding() ^ b.isBuilding()) {
+            return a.isBuilding() ? -1 : 1;
+        } else {
+            return 0;
+        }
+    }
 
     private boolean bothProjectsHaveBuildHistory(Job<?, ?> a, Job<?, ?> b) {
         return a.getLastCompletedBuild() != null && b.getLastCompletedBuild() != null;
